@@ -1,4 +1,4 @@
-CARD_SUITS = ['C', 'D', 'H', 'S']
+CARD_SUITS = ['C', 'D', 'S', 'H']
 CARD_RANKS = ['J', '9', 'A', 'T', 'K', 'Q']
 
 CARD_RANK_TO_VALUE_MAP = {

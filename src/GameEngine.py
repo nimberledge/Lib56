@@ -122,6 +122,14 @@ class GameEngine(object):
     def process_round(self):
         pass
 
+    # Make sure player asking for trump is not breaking rules
+    def process_trump_request(self):
+        pass
+
+    # Update whatever needs to be updated and inform all players of what the trump is
+    def reveal_trump(self):
+        pass
+
     # Run all 8 rounds of this, calling process_round for each.
     def process_all_rounds(self):
         first_starter = self.starting_player
