@@ -7,7 +7,6 @@ def sort_hand(hand):
     hand.sort(key=lambda x : CARD_RANKS.index(x.rank))
     hand.sort(key=lambda x : CARD_SUITS.index(x.suit))
 
-
 if __name__ == '__main__':
     deck = []
     for suit in CARD_SUITS:

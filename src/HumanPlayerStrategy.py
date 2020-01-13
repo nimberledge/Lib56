@@ -82,11 +82,9 @@ class HumanPlayerStrategy(PlayerStrategy):
             card_str = input('Enter the card to play: ')
 
     # Update yourself on the end of the round
-    @abstractmethod
     def update_end_of_round_info(self, round):
         pass
 
     # Update yourself based on who won the last round
-    @abstractmethod
-    def update_end_of_game_info(self, round):
+    def update_end_of_game_info(self, game_info):
         pass
