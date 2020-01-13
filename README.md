@@ -1,6 +1,6 @@
 # Lib56
-Library to build an engine to play the card game 56.
+Game Engine and PlayerStrategy template for 56, the card game. The plan is to expand this into a web-app, but after we get an initial framework up and running, the app stage should be easier.
 
-The library will include a means to validate game rules, and simple methods to run a game engine. It will be thoroughly tested, and the code will be held to a high standard.
+HumanPlayerStrategy is probably the easiest player strategy to implement, we can have that work based on input, and adapt that to the web-app.
 
-The idea is that this library can then be used, with a wrapper presumably, to then create the game on android or as a web-app, etc.
+Highly incomplete as of date, but if I ever get off my ass and make this thing a reality it will be a nice day for us all.
