@@ -1,16 +1,12 @@
 from Card import *
 from PlayerStrategy import PlayerStrategy
+from Helpers import *
 import copy
 import random
 
 class GameEngine(object):
 
     def __init__(self, num_players, strategies=None, randomize_start=False):
-        # self.deck = []
-        # self.players = []
-        # self.starting_player = None
-        # self.bids = None
-        # self.teams = [BLUE, RED] # idk, something
         assert num_players in [4, 6]
 
         self.num_players = num_players
@@ -18,10 +14,11 @@ class GameEngine(object):
 
         # Assuming 1 is left of 0 is left of n-1, this is easy enough to do
         # Round play can now go on in this order, and it will be a rendering thing later
-        if randomize_start:
-            self.starting_player = random.randint(0, num_players-1)
-        else:
-            self.starting_player = 0
+        # if randomize_start:
+        #     self.starting_player = random.randint(0, num_players-1)
+        # else:
+        #     self.starting_player = 0
+        self.starting_player = 0
 
         self.teams = ["BLUE", "RED"]
         # strategies as a proxy for the N PlayerStrategy-like objects representing
@@ -35,13 +32,6 @@ class GameEngine(object):
         else:
             pass
             # self.players = [None for i in range(self.num_players)]
-
-
-    @staticmethod
-    def card_compare(first, second, round_suit, trump=None):
-        # Always compare as earlier vs later
-        # Return higher card
-        pass
 
     # Generate a shuffled deck
     def generate_deck(self):
@@ -157,6 +147,10 @@ def test_main():
     # for card in ge_6.deck:
     #     print (card)
     # print (len(ge_6.deck), end='\n\n')
+    c1 = Card('Q', 'C')
+    c2 = Card('A', 'C')
+    # Use this to test extensively
+    print (card_compare(c1, c2, 'D', 'C'))
 
 if __name__ == '__main__':
     test_main()
