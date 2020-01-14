@@ -57,3 +57,9 @@ class PlayerStrategy(ABC):
     @abstractmethod
     def update_end_of_game_info(self, round):
         pass
+
+    # Some way to represent the current state of the object
+    @property
+    @abstractmethod
+    def json(self):
+        pass

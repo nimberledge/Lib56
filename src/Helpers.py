@@ -43,6 +43,24 @@ def card_compare(first, second, round_suit, trump_suit=None):
             else:
                 return -1
 
+# Takes in a hand and returns all the cards that you could potentially play
+# If the round_suit hasn't yet been decided, all cards are valid (first card in round)
+def valid_cards(hand, round_suit=None, trump_requested=False, trump_suit=None):
+    if round_suit is None:
+        return hand
+    if round_suit not in [card.suit for card in hand]:
+        return hand
+    else:
+        return [card for card in hand if card.suit == round_suit]
+
+    if trump_requested and trump_suit:
+        if trump_suit not in [card.suit for card in hand]:
+            return hand
+        else:
+            return [card for card in hand if card.suit==trump_suit]
+
+    return hand
+
 
 if __name__ == '__main__':
     # deck = []

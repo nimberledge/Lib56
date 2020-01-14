@@ -73,6 +73,8 @@ class GameEngine(object):
         first_bidder = self.starting_player
         next_bidder = first_bidder
 
+        # Assume bids are legal because the UI should handle this bit
+        # If we do do AI players we might as well enforce they follow rules too right?
         bid_amount = self.players[first_bidder].make_bid(enforce_bid=True)
         winning_bid = Bid(self.players[first_bidder], bid_amount)
         self.push_bid_info(winning_bid)
@@ -83,6 +85,7 @@ class GameEngine(object):
             next_bidder = (next_bidder + 1) % num_players
             bid_amount = self.players[next_bidder].make_bid()
             # TODO: Implement bidding rules
+            # Second condition _should_ be redundant because we should assume they play by the rules
             if bid_amount > 0 and bid_amount > winning_bid.bid_amount:
                 winning_bid = Bid(self.players[next_bidder], bid_amount)
                 self.push_bid_info(winning_bid)

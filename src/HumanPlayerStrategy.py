@@ -88,3 +88,6 @@ class HumanPlayerStrategy(PlayerStrategy):
     # Update yourself based on who won the last round
     def update_end_of_game_info(self, game_info):
         pass
+
+    # Some way to represent the current state of the object
+    def json(self):
