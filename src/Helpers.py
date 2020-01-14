@@ -45,14 +45,19 @@ def card_compare(first, second, round_suit, trump_suit=None):
 
 
 if __name__ == '__main__':
-    deck = []
-    for suit in CARD_SUITS:
-        for rank in CARD_RANKS[:-2]:
-            card = Card(rank, suit)
-            deck.append(card)
-            deck.append(copy.deepcopy(card))
-    random.shuffle(deck)
-    hand = deck[:8]
-    print (', '.join([str(c) for c in hand]))
-    sort_hand(hand)
-    print (', '.join([str(c) for c in hand]))
+    # deck = []
+    # for suit in CARD_SUITS:
+    #     for rank in CARD_RANKS[:-2]:
+    #         card = Card(rank, suit)
+    #         deck.append(card)
+    #         deck.append(copy.deepcopy(card))
+    # random.shuffle(deck)
+    # hand = deck[:8]
+    # print (', '.join([str(c) for c in hand]))
+    # sort_hand(hand)
+    # print (', '.join([str(c) for c in hand]))
+    c1 = Card('J', 'C')
+    c2 = Card('J', 'C')
+    # Use this to test
+    # args - earlier card, later card, round suit, trump suit (use None if trump hidden)
+    print (card_compare(c1, c2, 'D', 'C'))

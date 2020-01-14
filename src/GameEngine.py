@@ -72,9 +72,11 @@ class GameEngine(object):
     def process_bidding_round(self):
         first_bidder = self.starting_player
         next_bidder = first_bidder
+
         bid_amount = self.players[first_bidder].make_bid(enforce_bid=True)
         winning_bid = Bid(self.players[first_bidder], bid_amount)
         self.push_bid_info(winning_bid)
+
         done = False
         last_three_bids = []
         while not done:
@@ -89,11 +91,13 @@ class GameEngine(object):
             if len(last_three_bids) < 3:
                 last_three_bids.append(bid_amount)
             else:
+                # Should use an array but lol
                 last_three_bids.pop(0)
                 last_three_bids.append(bid_amount)
             # If 3 people pass in a row
             if sum(last_three_bids) == 0:
                 done = True
+
         self.game_bid = winning_bid
         self.hidden_trump_card = winning_bid.player.select_trump()
         self.bidder_index = winning_bid.player.number
@@ -113,6 +117,7 @@ class GameEngine(object):
         pass
 
     # Make sure player asking for trump is not breaking rules
+    # Actually this could be done via the UI
     def process_trump_request(self):
         pass
 
@@ -147,10 +152,6 @@ def test_main():
     # for card in ge_6.deck:
     #     print (card)
     # print (len(ge_6.deck), end='\n\n')
-    c1 = Card('Q', 'C')
-    c2 = Card('A', 'C')
-    # Use this to test extensively
-    print (card_compare(c1, c2, 'D', 'C'))
 
 if __name__ == '__main__':
     test_main()
