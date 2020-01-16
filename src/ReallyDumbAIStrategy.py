@@ -5,7 +5,7 @@ from Helpers import *
 import logging
 import random
 
-log_format_str = "%(asctime)s: %(message)s"
+log_format_str = "%(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
 
 '''Really dumb AI that follows the rules.'''
