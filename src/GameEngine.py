@@ -136,6 +136,7 @@ class GameEngine(object):
         # Remove the card from their hand, and place it face down on the table
         # Note that this card is not available to play until trump is requested
         self.player_hands[self.bidder_index].remove(self.hidden_trump_card)
+        logging.info("{} chose to hide {}".format(winning_bid.player.name, str(self.hidden_trump_card)))
         # Use this to make sure the player doesn't start a round with that suit
         # (unless they have no choice but code that too)
         self.trump_suit = self.hidden_trump_card.suit
@@ -237,6 +238,7 @@ class GameEngine(object):
                     if len([card for card in self.player_hands[player.number] if card.suit != self.trump_suit]) > 0:
                         self.play_turn(round, player)
             round.update_round(player, player_card)
+            self.player_hands[player.number].remove(player_card)
 
     # Update whatever needs to be updated and inform all players of what the trump is
     def reveal_trump(self):
