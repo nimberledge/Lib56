@@ -11,7 +11,7 @@ logging.basicConfig(format=log_format_str, level=logging.INFO)
 '''Really dumb AI that follows the rules.'''
 class ReallyDumbAIStrategy(PlayerStrategy):
 
-    def __init__(self, name, number):
+    def __init__(self, name):
         self.name = name
         self.number = None
         self.team = None

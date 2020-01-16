@@ -98,14 +98,14 @@ class GameEngine(object):
 
         # Assume bids are legal because the UI should handle this bit
         # If we do do AI players we might as well enforce they follow rules too right?
-        logging.info("Getting a first bid from player, and enforcing a minimum 28 bid")
+        logging.info("Getting a first bid from {}, and enforcing a minimum 28 bid".format(self.players[self.starting_player].name))
         bid_amount = self.players[first_bidder].make_bid(enforce_bid=True)
         winning_bid = Bid(self.players[first_bidder], bid_amount)
         self.push_bid_info(winning_bid)
 
         logging.info("Continuing bidding round after first bid")
         done = False
-        last_three_bids = []
+        last_nminus1_bids = []
         while not done:
             next_bidder = (next_bidder + 1) % self.num_players
             bid_amount = self.players[next_bidder].make_bid()
@@ -118,15 +118,15 @@ class GameEngine(object):
             else:
                 logging.info("{} opted to pass".format(self.players[next_bidder].name))
             # Check termination
-            if len(last_three_bids) < 3:
-                last_three_bids.append(bid_amount)
+            if len(last_nminus1_bids) < self.num_players-1:
+                last_nminus1_bids.append(bid_amount)
             else:
                 # Should use an array but lol
-                last_three_bids.pop(0)
-                last_three_bids.append(bid_amount)
+                last_nminus1_bids.pop(0)
+                last_nminus1_bids.append(bid_amount)
             # If 3 people pass in a row
-            if len(last_three_bids) == 3 and sum(last_three_bids) == 0:
-                logging.info("Last 3 bids were passes, ending bidding round")
+            if len(last_nminus1_bids) == self.num_players-1 and sum(last_nminus1_bids) == 0:
+                logging.info("Last {} bids were passes, ending bidding round".format(self.num_players-1))
                 done = True
 
         self.game_bid = winning_bid
@@ -166,6 +166,7 @@ class GameEngine(object):
             # Let all players know what happened here
             for player in self.players:
                 player.update_end_of_round_info(round)
+            logging.info("Round {} won by {}".format(num_rounds, round.winning_player.name))
         self.game_rounds = list(rounds)
 
     def play_round(self, round, start_index):
@@ -198,9 +199,9 @@ class GameEngine(object):
     # we have player_card = player.play_card(round)
     # round.update_round(player_card)
     def play_turn(self, round, player, enforce_suit=None):
-        logging.info("Querying {} for card".format(player.name))
+        # logging.info("Querying {} for card".format(player.name))
         player_card = player.play_card(round)
-        logging.info("{} tried to play {}".format(player.name, str(player_card)))
+        # logging.info("{} tried to play {}".format(player.name, str(player_card)))
         # assert player_card in self.player_hands[player.number]
         if round.round_started:
             # If player requests trump
@@ -289,8 +290,8 @@ class GameEngine(object):
         self.trump_revealed = False
         self.game_rounds = []
         self.game_bid = None
+        logging.info("Asking players to reset state")
         for player in self.players:
-            logging.info("Asking players to reset state")
             player.reset()
 
     # Whole game, bidding to round-play, to determining overall points
@@ -304,13 +305,15 @@ class GameEngine(object):
 
 def test_main():
     # ge_6 = GameEngine(num_players=6)
-    player_1 = ReallyDumbAIStrategy("Player 1", 0)
-    player_2 = ReallyDumbAIStrategy("Player 2", 1)
-    player_3 = ReallyDumbAIStrategy("Player 3", 2)
-    player_4 = ReallyDumbAIStrategy("Player 4", 3)
-    strategies = [player_1, player_2, player_3, player_4]
-    ge_4 = GameEngine(num_players=4, strategies=strategies)
-    ge_4.play_game()
+    player_1 = ReallyDumbAIStrategy("Player 1")
+    player_2 = ReallyDumbAIStrategy("Player 2")
+    player_3 = ReallyDumbAIStrategy("Player 3")
+    player_4 = ReallyDumbAIStrategy("Player 4")
+    player_5 = ReallyDumbAIStrategy("Player 5")
+    player_6 = ReallyDumbAIStrategy("Player 6")
+    strategies = [player_1, player_2, player_3, player_4, player_5, player_6]
+    ge_6 = GameEngine(num_players=6, strategies=strategies)
+    ge_6.play_game()
     # ge_4.generate_deck()
     # for card in ge_4.deck:
     #     print (card)
