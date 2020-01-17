@@ -8,7 +8,7 @@ import random
 import logging
 from ReallyDumbAIStrategy import ReallyDumbAIStrategy
 
-log_format_str = "%(message)s"
+log_format_str = "INFO: %(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
 
 class GameEngine(object):
@@ -316,6 +316,7 @@ def test_main():
     # ge_6 = GameEngine(num_players=6, strategies=strategies, randomize_start=True)
     # ge_6.play_game()
     ge_4 = GameEngine(num_players=4, strategies=strategies, randomize_start=True)
+    ge_4.play_game()
     ge_4.play_game()
     # ge_4.generate_deck()
     # for card in ge_4.deck:

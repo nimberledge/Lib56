@@ -29,8 +29,6 @@ class HumanPlayerStrategy(PlayerStrategy):
     def display_hand(self):
         sort_hand(self.hand)
         print ('Current hand: {}'.format(', '.join[str(c) for c in self.hand]))
-        if self.hidden_card:
-            print ('(Trump) Card hidden: ', self.hidden_card)
 
     # Make the next bid, enforce_bid for first bid, otherwise pass is possible
     # Return an int, the bid amount. Return 0 if passing.

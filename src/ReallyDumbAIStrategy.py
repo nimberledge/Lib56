@@ -43,6 +43,10 @@ class ReallyDumbAIStrategy(PlayerStrategy):
         if bid.player == self:
             self.won_bid = True
 
+    def display_hand(self):
+        sort_hand(self.hand)
+        print ('Current hand: {}'.format(','.join([str(c) for c in self.hand])))
+
     # Always pass on bid, if enforced, bid 28
     def make_bid(self, enforce_bid=False):
         if enforce_bid:
