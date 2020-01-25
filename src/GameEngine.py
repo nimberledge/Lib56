@@ -124,7 +124,7 @@ class GameEngine(object):
                 # Should use an array but lol
                 last_nminus1_bids.pop(0)
                 last_nminus1_bids.append(bid_amount)
-            # If 3 people pass in a row
+            # If n-1 people pass in a row
             if len(last_nminus1_bids) == self.num_players-1 and sum(last_nminus1_bids) == 0:
                 logging.info("Last {} bids were passes, ending bidding round".format(self.num_players-1))
                 done = True
@@ -155,7 +155,7 @@ class GameEngine(object):
         rounds = []
         while num_rounds < 8:
             num_rounds += 1
-            logging.info("Beginning round {}".format(num_rounds))
+            logging.info("\nBeginning round {}".format(num_rounds))
             if self.trump_revealed:
                 round = Round(trump_suit=self.trump_suit)
             else:
@@ -166,7 +166,7 @@ class GameEngine(object):
             # Let all players know what happened here
             for player in self.players:
                 player.update_end_of_round_info(round)
-            logging.info("Round {} won by {}".format(num_rounds, round.winning_player.name))
+            logging.info("Round {} won by {}, worth {} points".format(num_rounds, round.winning_player.name, round.round_pts))
         self.game_rounds = list(rounds)
 
     def play_round(self, round, start_index):
@@ -260,7 +260,7 @@ class GameEngine(object):
                 blue_pts += round.round_pts
             else:
                 red_pts += round.round_pts
-
+        logging.info("Blue pts: {} Red pts: {}".format(blue_pts, red_pts))
         # Points modifier for bids 40 and above
         bid_pad = 0
         if self.game_bid.bid_amount >= 40:
@@ -290,7 +290,7 @@ class GameEngine(object):
         self.trump_revealed = False
         self.game_rounds = []
         self.game_bid = None
-        logging.info("Asking players to reset state")
+        logging.info("Asking players to reset state\n")
         for player in self.players:
             player.reset()
 
@@ -309,15 +309,16 @@ def test_main():
     player_2 = ReallyDumbAIStrategy("Player 2")
     player_3 = ReallyDumbAIStrategy("Player 3")
     player_4 = ReallyDumbAIStrategy("Player 4")
-    # player_5 = ReallyDumbAIStrategy("Player 5")
-    # player_6 = ReallyDumbAIStrategy("Player 6")
-    # strategies = [player_1, player_2, player_3, player_4, player_5, player_6]
-    strategies = [player_1, player_2, player_3, player_4]
-    # ge_6 = GameEngine(num_players=6, strategies=strategies, randomize_start=True)
-    # ge_6.play_game()
-    ge_4 = GameEngine(num_players=4, strategies=strategies, randomize_start=True)
-    ge_4.play_game()
-    ge_4.play_game()
+    player_5 = ReallyDumbAIStrategy("Player 5")
+    player_6 = ReallyDumbAIStrategy("Player 6")
+    strategies = [player_1, player_2, player_3, player_4, player_5, player_6]
+    # strategies = [player_1, player_2, player_3, player_4]
+    ge_6 = GameEngine(num_players=6, strategies=strategies, randomize_start=True)
+    ge_6.play_game()
+    ge_6.play_game()
+    # ge_4 = GameEngine(num_players=4, strategies=strategies, randomize_start=True)
+    # ge_4.play_game()
+    # ge_4.play_game()
     # ge_4.generate_deck()
     # for card in ge_4.deck:
     #     print (card)

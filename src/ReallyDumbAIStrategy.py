@@ -73,6 +73,7 @@ class ReallyDumbAIStrategy(PlayerStrategy):
             return self.play_card_helper(trump_suit=round.trump_suit)
         else:
             return self.play_card_helper(starting_player=False, round_suit=round.round_suit, trump_suit=round.trump_suit)
+
     # Choose a card from your hand to play
     # Ask for the trump if you want to
     # Game Engine will repeatedly ask you to play a card if you play invalid
