@@ -43,4 +43,6 @@ The cards in this deck are 9, 10, J, Q, K, A, (of all suites) and 2 copies (from
 - At the end of 8 rounds, the sum of points in the rounds won by the bidding team is counted. Based on whether the bid is made, points are awarded based on the earlier mentioned scheme.
 - Dealer shifts to the left, rinse and repeat ad nauseam
 
+If you want an example of a game, just run GameEngine.py. The logging is an ok representation. There's absolutely 0 logic in the default setting, so probably not good to base strategy on, but the game mechanics are consistent.
+
 PS: help me write an imperfect shuffle for my 56 deck
