@@ -9,8 +9,8 @@ Highly incomplete as of date, but if I ever get off my ass and make this thing a
 56 is a 4 or 6 player team game. Players sit in a circle labeled 1-6, with alternate players on the same team (1, 3, 5). The game is comprised of two rounds -
 1. The bidding round
 2. Table round
-At the start of the game, players are dealt hands of 8 cards from a truncated deck.
-The cards in this deck are 9, 10, J, Q, K, A. In the 4 player game, Kings and Queens are omitted. In the game, the precedence order is as follows:
+At the start of the game, players are dealt hands of 8 cards from 2 truncated decks.
+The cards in this deck are 9, 10, J, Q, K, A, (of all suites) and 2 copies (from 2 decks) of each card. In the 4 player game, Kings and Queens are omitted. In the game, the precedence order is as follows:
 	1. J - 3 points
 	2. 9 - 2 points
 	3. A - 1 point (higher than 10)
@@ -30,4 +30,17 @@ The cards in this deck are 9, 10, J, Q, K, A. In the 4 player game, Kings and Qu
 
 ## Roundplay
 - The winner of the bidding round selects a card from their hand to put face down on the table. This card represents the "trump" suite, chosen by the winner of the bidding.
-- Left of the dealer starts the first round,
+- Left of the dealer starts the first round, players play in turns counter clockwise
+- Every subsequent player plays a card that matches the suite played by the starting player, if possible
+- If not possible, players have the option of
+	1. Playing a card of any other suite
+	2. If the trump card is hidden, requesting the trump card
+	3. If the trump is revealed, either 1, or more specifically playing a card of the trump suite, aka a "cut"
+- In each round, the highest card played wins. The player who played the card wins the round for their respective team. The winning player also starts the subsequent round.
+- A card of the trump suite is higher than any card of any other suite
+- Until the trump is revealed, trump suite cards hold no value
+- Once the trump card is requested, the winner of the bid will uncover the card on the table, visible to all players, and return it to their hand. After this, all trump suite cards are higher than cards of other suties.
+- At the end of 8 rounds, the sum of points in the rounds won by the bidding team is counted. Based on whether the bid is made, points are awarded based on the earlier mentioned scheme.
+- Dealer shifts to the left, rinse and repeat ad nauseam
+
+PS: help me write an imperfect shuffle for my 56 deck
