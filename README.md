@@ -10,12 +10,12 @@ Highly incomplete as of date, but if I ever get off my ass and make this thing a
 1. The bidding round
 2. Table round
 Players are dealt hands of 8 cards from a truncated deck. The cards in this deck are 9, 10, J, Q, K, A. In the game, the precedence order is as follows:
-1. J - 3 points
-2. 9 - 2 points
-3. A - 1 point (higher than 10)
-4. 10 - 1 point (lower  than A)
-5. K - 0 points (higher than Q)
-6. Q - 0 points (lower than K)
+	1. J - 3 points
+	2. 9 - 2 points
+	3. A - 1 point (higher than 10)
+	4. 10 - 1 point (lower  than A)
+	5. K - 0 points (higher than Q)
+	6. Q - 0 points (lower than K)
 In the 4 player game, Kings and Queens are omitted. Based on the initial hand, players will bid various point amounts. A bid is essentially a wager that the bidding player's team will make X amount of points. One makes points during the second round.
 ## Bidding rules
 - Left of the dealer starts, with a minimum compulsory bid of 28 points
@@ -25,4 +25,4 @@ In the 4 player game, Kings and Queens are omitted. Based on the initial hand, p
 - Bids in the 40-55 range give the bidding team 2 points for winning, and -3 points for losing the bid
 - 56 is a special bid, called 'tani'. The bidding player plays without teammates, starts every round, and must simply win all rounds to achieve the bid. It is worth n points if won, and -n-1 if lost, where n is the number of players
 - A player may not outbid a teammate's bid in the 28-39 range with anything less than a 40 bid
-- A player may not bid twice in the 28-39 range 
+- A player may not bid twice in the 28-39 range
