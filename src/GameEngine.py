@@ -7,6 +7,7 @@ import copy
 import random
 import logging
 from ReallyDumbAIStrategy import ReallyDumbAIStrategy
+from HeuristicStrategy import HeuristicStrategy
 
 log_format_str = "INFO: %(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
@@ -81,7 +82,7 @@ class GameEngine(object):
         # Let each Player look at their hand
         logging.info("Informing players of their hands")
         for i, player in enumerate(self.players):
-            self.players[i].receive_initial_hand(self.player_hands[i])
+            player.receive_initial_hand(self.player_hands[i])
 
     # Informs all players of the new winning bid on the table
     def push_bid_info(self, bid):
@@ -121,7 +122,7 @@ class GameEngine(object):
             if len(last_nminus1_bids) < self.num_players-1:
                 last_nminus1_bids.append(bid_amount)
             else:
-                # Should use an array but lol
+                # Should use an array (questionable) but lol
                 last_nminus1_bids.pop(0)
                 last_nminus1_bids.append(bid_amount)
             # If n-1 people pass in a row
@@ -213,7 +214,7 @@ class GameEngine(object):
                     round.reveal_trump(self.trump_suit)
                     # Enforce that the player plays a trump card
                     self.play_turn(round, player, enforce_suit=self.trump_suit)
-                else: # idk do the request in a loop??
+                else: # idk do the request in a loop?? AI that makes a bad request might be uh something
                     # Since we're not updating the round info seems legit to recurse
                     logging.info("Bad trump request from {}".format(player.name))
                     self.play_turn(round, player)

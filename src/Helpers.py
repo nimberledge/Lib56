@@ -3,6 +3,7 @@ import random, copy
 
 # Sorts by rank, then suit
 # Also does black-red-black-red so that you don't get too confused
+# Shapes are hard ok - Rithi
 def sort_hand(hand):
     hand.sort(key=lambda x : CARD_RANKS.index(x.rank))
     hand.sort(key=lambda x : CARD_SUITS.index(x.suit))
