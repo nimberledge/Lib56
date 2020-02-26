@@ -10,7 +10,7 @@ Highly incomplete as of date, but if I ever get off my ass and make this thing a
 1. The bidding round
 2. Table round
 At the start of the game, players are dealt hands of 8 cards from 2 truncated decks.
-The cards in this deck are 9, 10, J, Q, K, A, (of all suites) and 2 copies (from 2 decks) of each card. In the 4 player game, Kings and Queens are omitted. In the game, the precedence order is as follows:
+The cards in this deck are 9, 10, J, Q, K, A, (of all suits) and 2 copies (from 2 decks) of each card. In the 4 player game, Kings and Queens are omitted. In the game, the precedence order is as follows:
 	1. J - 3 points
 	2. 9 - 2 points
 	3. A - 1 point (higher than 10)
@@ -29,17 +29,17 @@ The cards in this deck are 9, 10, J, Q, K, A, (of all suites) and 2 copies (from
 - A player may not bid twice in the 28-39 range
 
 ## Roundplay
-- The winner of the bidding round selects a card from their hand to put face down on the table. This card represents the "trump" suite, chosen by the winner of the bidding.
+- The winner of the bidding round selects a card from their hand to put face down on the table. This card represents the "trump" suit, chosen by the winner of the bidding.
 - Left of the dealer starts the first round, players play in turns counter clockwise
-- Every subsequent player plays a card that matches the suite played by the starting player, if possible
+- Every subsequent player plays a card that matches the suit played by the starting player, if possible
 - If not possible, players have the option of
-	1. Playing a card of any other suite
+	1. Playing a card of any other suit
 	2. If the trump card is hidden, requesting the trump card
-	3. If the trump is revealed, either i, or more specifically playing a card of the trump suite, aka a "cut"
+	3. If the trump is revealed, either i, or more specifically playing a card of the trump suit, aka a "cut"
 - In each round, the highest card played wins. The player who played the card wins the round for their respective team. The winning player also starts the subsequent round.
-- A card of the trump suite is higher than any card of any other suite
-- Until the trump is revealed, trump suite cards hold no value
-- Once the trump card is requested, the winner of the bid will uncover the card on the table, visible to all players, and return it to their hand. After this, all trump suite cards are higher than cards of other suties.
+- A card of the trump suit is higher than any card of any other suit
+- Until the trump is revealed, trump suit cards hold no value
+- Once the trump card is requested, the winner of the bid will uncover the card on the table, visible to all players, and return it to their hand. After this, all trump suit cards are higher than cards of other suties.
 - At the end of 8 rounds, the sum of points in the rounds won by the bidding team is counted. Based on whether the bid is made, points are awarded based on the earlier mentioned scheme.
 - Dealer shifts to the left, rinse and repeat ad nauseam
 
