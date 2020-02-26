@@ -35,7 +35,7 @@ The cards in this deck are 9, 10, J, Q, K, A, (of all suites) and 2 copies (from
 - If not possible, players have the option of
 	1. Playing a card of any other suite
 	2. If the trump card is hidden, requesting the trump card
-	3. If the trump is revealed, either 1, or more specifically playing a card of the trump suite, aka a "cut"
+	3. If the trump is revealed, either i, or more specifically playing a card of the trump suite, aka a "cut"
 - In each round, the highest card played wins. The player who played the card wins the round for their respective team. The winning player also starts the subsequent round.
 - A card of the trump suite is higher than any card of any other suite
 - Until the trump is revealed, trump suite cards hold no value
