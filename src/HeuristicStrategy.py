@@ -10,6 +10,8 @@ logging.basicConfig(format=log_format_str, level=logging.INFO)
 
 '''Colloquial wisdom boiled down to the basics.'''
 class HeuristicStrategy(PlayerStrategy):
+    # TODO Tune this strategy
+    # I guess I have to finally put numbers to these intuitions
     WEAK_TRUMP_STRENGTH = 1
     STRONG_TRUMP_STRENGTH = 2
     VERY_STRONG_TRUMP_STRENGTH = 3
@@ -155,6 +157,8 @@ class HeuristicStrategy(PlayerStrategy):
         # +1 for every winner
         for card in self.hand:
             if card.suit == best_suit:
+                if CARD_RANK_TO_VALUE_MAP[card.rank] <= 1 and distribution[best_suit] < 4:
+                    continue
                 self.winners += 1
             elif card.rank == 'J':
                 if distribution[card.suit] == 1: # Shake jack
@@ -204,7 +208,7 @@ class HeuristicStrategy(PlayerStrategy):
                 return 56
         # Then bid
         if self.winning_bid.bid_amount < self.max_bid:
-            if self.winning_bid.player.number % 2 == self.number % 2:
+            if self.winning_bid.player.team == self.team:
                 if self.winning_bid.bid_amount < 40:
                     if self.bid_region == 0:
                         return 0
@@ -235,14 +239,14 @@ class HeuristicStrategy(PlayerStrategy):
 
     def play_card(self, round):
         if not round.round_started:
-            return self.play_card_helper(trump_suit=round.trump_suit)
+            return self.play_card_helper(starting_player=True, trump_suit=round.trump_suit)
         else:
-            return self.play_card_helper(starting_player=False, round_suit=round.round_suit, trump_suit=round.trump_suit)
+            return self.play_card_helper(round_suit=round.round_suit, trump_suit=round.trump_suit)
 
     # Choose a card from your hand to play
     # Ask for the trump if you want to
     # Game Engine will repeatedly ask you to play a card if you play invalid
-    def play_card_helper(self, starting_player=True, round_suit=None, trump_suit=None):
+    def play_card_helper(self, starting_player=False, round_suit=None, trump_suit=None):
         valid_cards = []
         if starting_player:
             # Trump not been revealed
@@ -300,7 +304,7 @@ class HeuristicStrategy(PlayerStrategy):
 
 def test_main():
     player1 = HeuristicStrategy("Deeeb")
-    hand_str = ['JS', 'JS', 'AS', 'TS', '9S', 'TC', 'JH', 'JD']
+    hand_str = ['JS', 'JS', '9S', 'TS', '9S', 'AH', 'JH', 'JD']
     hand = [Card(c[0], c[1]) for c in hand_str]
     player1.update_number_and_team(1, 'RED')
     player1.receive_initial_hand(hand)
