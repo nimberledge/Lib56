@@ -42,6 +42,8 @@ class ReallyDumbAIStrategy(PlayerStrategy):
         self.winning_bid = bid
         if bid.player == self:
             self.won_bid = True
+        else:
+            self.won_bid = False
 
     def display_hand(self):
         sort_hand(self.hand)
@@ -51,6 +53,8 @@ class ReallyDumbAIStrategy(PlayerStrategy):
     def make_bid(self, enforce_bid=False):
         if enforce_bid:
             return 28
+        if self.winning_bid.bid_amount < 31:
+            return self.winning_bid.bid_amount + 1
         return 0
 
     # If you've won the bidding, select a card from your hand to hide as the trump
@@ -128,6 +132,6 @@ class ReallyDumbAIStrategy(PlayerStrategy):
         self.just_asked_for_trump = False
 
     # Some way to represent the current state of the object
-    @property
-    def json(self):
-        pass
+    # @property
+    # def json(self):
+    #     pass

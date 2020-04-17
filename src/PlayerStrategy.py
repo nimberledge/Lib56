@@ -1,4 +1,6 @@
 from abc import *
+import copy
+import json
 
 # Abstract base class for players. We can implement this class to get different strategy elements
 class PlayerStrategy(ABC):
@@ -65,6 +67,11 @@ class PlayerStrategy(ABC):
 
     # Some way to represent the current state of the object
     @property
-    @abstractmethod
     def json(self):
-        pass
+        j_dict = {}
+        j_dict['name'] = self.name
+        if 'number' in self.__dict__:
+            j_dict['number'] = self.number
+        if 'team' in self.__dict__:
+            j_dict['team'] = self.team
+        return json.dumps(j_dict)

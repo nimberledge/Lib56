@@ -1,3 +1,5 @@
+import json
+from cached_property import cached_property
 CARD_SUITS = ['C', 'D', 'S', 'H']
 CARD_RANKS = ['J', '9', 'A', 'T', 'K', 'Q']
 
@@ -33,8 +35,14 @@ class Card(object):
     def __eq__(self, other):
         return self.rank == other.rank and self.suit == other.suit
 
+    # Experimental
+    @property
+    def json(self):
+        return json.dumps(self.__dict__)
+
 def main():
-    pass
+    c1 = Card("J", "S")
+    print (c1.json)
 
 if __name__ == '__main__':
     main()

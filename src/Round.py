@@ -1,6 +1,8 @@
 from Card import *
 from Helpers import *
 import logging
+import json
+import copy
 
 log_format_str = "%(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
@@ -35,3 +37,14 @@ class Round(object):
     def reveal_trump(self, trump_suit):
         assert self.trump_suit is None
         self.trump_suit = trump_suit
+
+    def json(self):
+        tmp = copy.deepcopy(self.__dict__)
+        for i, c in enumerate(tmp['cards_played']):
+            tmp['cards_played'][i] = c.json
+        if self.winning_card is not None:
+            tmp['winning_card'] = self.winning_card.json
+            tmp['winning_player'] = self.winning_player.json
+
+        # print (self.__dict__, tmp)
+        return json.dumps(tmp)

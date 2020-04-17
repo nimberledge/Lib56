@@ -6,11 +6,23 @@ from Helpers import *
 import copy
 import random
 import logging
+import pprint
+import json
+import enum
 from ReallyDumbAIStrategy import ReallyDumbAIStrategy
 from HeuristicStrategy import HeuristicStrategy
 
 log_format_str = "INFO: %(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
+
+class GameState(enum.Enum):
+    INITIALIZED = 0
+    WAITING_FOR_PLAYERS = 1
+    BIDDING_ROUND = 2
+    HIDE_TRUMP_REQUEST = 3
+    TABLE_ROUND = 4
+    END_OF_GAME = 5
+    RESET = 6
 
 class GameEngine(object):
 
@@ -19,6 +31,7 @@ class GameEngine(object):
         logging.info("Starting game engine to play game with {} players".format(num_players))
         self.num_players = num_players
         self.player_hands = [[] for i in range(num_players)]
+        self.state = GameState.INITIALIZED
 
         # Assuming 1 is left of 0 is left of n-1, this is easy enough to do
         # Round play can now go on in this order, and it will be a rendering thing later
@@ -34,6 +47,7 @@ class GameEngine(object):
 
         self.teams = ["BLUE", "RED"]
         self.game_bid = None
+        self.bid_history = []
         self.blue_overall_pts = 0
         self.red_overall_pts = 0
         # strategies as a proxy for the N PlayerStrategy-like objects representing
@@ -97,10 +111,12 @@ class GameEngine(object):
         first_bidder = self.starting_player
         next_bidder = first_bidder
 
+        # logging.info("Object json: {}\n".format(self.json))
         # Assume bids are legal because the UI should handle this bit
         # If we do do AI players we might as well enforce they follow rules too right?
         logging.info("Getting a first bid from {}, and enforcing a minimum 28 bid".format(self.players[self.starting_player].name))
         bid_amount = self.players[first_bidder].make_bid(enforce_bid=True)
+        self.bid_history.append(Bid(self.players[first_bidder], bid_amount))
         winning_bid = Bid(self.players[first_bidder], bid_amount)
         self.push_bid_info(winning_bid)
 
@@ -110,6 +126,9 @@ class GameEngine(object):
         while not done:
             next_bidder = (next_bidder + 1) % self.num_players
             bid_amount = self.players[next_bidder].make_bid()
+
+            self.bid_history.append(Bid(self.players[next_bidder], bid_amount))
+            # logging.info("Bid history json: {}".format(self.get_bid_json()))
             # TODO: Implement bidding rules
             # Second condition _should_ be redundant because we should assume they play by the rules
             if bid_amount > 0 and bid_amount > winning_bid.bid_amount:
@@ -128,6 +147,7 @@ class GameEngine(object):
             # If n-1 people pass in a row
             if len(last_nminus1_bids) == self.num_players-1 and sum(last_nminus1_bids) == 0:
                 logging.info("Last {} bids were passes, ending bidding round".format(self.num_players-1))
+                # logging.info("Object json: {}\n".format(self.json))
                 done = True
 
         self.game_bid = winning_bid
@@ -164,6 +184,8 @@ class GameEngine(object):
             self.play_round(round, round_starter_index)
             round_starter_index = round.winning_player.number
             rounds.append(round)
+            # logging.info("Round json: {}".format(round.json()))
+            # pprint.pprint(round.json())
             # Let all players know what happened here
             for player in self.players:
                 player.update_end_of_round_info(round)
@@ -174,9 +196,12 @@ class GameEngine(object):
         turns = 0
         next_player = self.players[start_index]
         while turns < self.num_players:
+            # logging.info("Object json: {}\n".format(self.json))
             self.play_turn(round, next_player)
             turns += 1
             next_player = self.players[(start_index + turns) % self.num_players]
+            # logging.info("Round json:\n{}".format(round.json()))
+            # pprint.pprint(round.json())
 
     # Make sure player asking for trump is not breaking rules
     # Actually this could be done via the UI
@@ -289,8 +314,10 @@ class GameEngine(object):
         self.player_hands = [[] for i in range(self.num_players)]
         self.starting_player = (self.starting_player + 1) % self.num_players
         self.trump_revealed = False
+        self.bid_history = []
         self.game_rounds = []
         self.game_bid = None
+
         logging.info("Asking players to reset state\n")
         for player in self.players:
             player.reset()
@@ -304,14 +331,32 @@ class GameEngine(object):
         self.determine_game_points()
         self.reset_game()
 
+    # Temporary
+    def get_bid_json(self):
+        bid_history_json = list(self.bid_history)
+        for i, bid in enumerate(bid_history_json):
+            bid_history_json[i] = bid.json
+            # print (bid.json)
+        return json.dumps(bid_history_json)
+
+    @property
+    def json(self):
+        # return json.dumps(self.__dict__)
+        state_dict = {}
+        state_dict['num_players'] = self.num_players
+        state_dict['players'] = [player.json for player in self.strategies]
+        state_dict['player_hands'] = [[card.json for card in self.player_hands[i]] for i in range(len(self.player_hands))]
+        state_dict['bid_history'] = [bid.json for bid in self.bid_history_json]
+        pass
+
 def test_main():
     # ge_6 = GameEngine(num_players=6)
-    player_1 = ReallyDumbAIStrategy("Player 1")
-    player_2 = ReallyDumbAIStrategy("Player 2")
-    player_3 = ReallyDumbAIStrategy("Player 3")
-    player_4 = ReallyDumbAIStrategy("Player 4")
-    player_5 = ReallyDumbAIStrategy("Player 5")
-    player_6 = ReallyDumbAIStrategy("Player 6")
+    player_1 = ReallyDumbAIStrategy("Player 0")
+    player_2 = ReallyDumbAIStrategy("Player 1")
+    player_3 = ReallyDumbAIStrategy("Player 2")
+    player_4 = ReallyDumbAIStrategy("Player 3")
+    player_5 = ReallyDumbAIStrategy("Player 4")
+    player_6 = ReallyDumbAIStrategy("Player 5")
     strategies = [player_1, player_2, player_3, player_4, player_5, player_6]
     # strategies = [player_1, player_2, player_3, player_4]
     ge_6 = GameEngine(num_players=6, strategies=strategies, randomize_start=True)
