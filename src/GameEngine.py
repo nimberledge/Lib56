@@ -100,7 +100,7 @@ class GameEngine(object):
 
     # Informs all players of the new winning bid on the table
     def push_bid_info(self, bid):
-        logging.info("Sending bid info : {} bid {} to all players".format(bid.player.name, bid.bid_amount))
+        # logging.info("Sending bid info : {} bid {} to all players".format(bid.player.name, bid.bid_amount))
         for player in self.players:
             player.update_bid_info(bid)
 
@@ -119,24 +119,23 @@ class GameEngine(object):
         self.bid_history.append(Bid(self.players[first_bidder], bid_amount))
         winning_bid = Bid(self.players[first_bidder], bid_amount)
         self.push_bid_info(winning_bid)
-
-        logging.info("Continuing bidding round after first bid")
+        # logging.info("Continuing bidding round after first bid")
         done = False
         last_nminus1_bids = []
         while not done:
             next_bidder = (next_bidder + 1) % self.num_players
             bid_amount = self.players[next_bidder].make_bid()
-
-            self.bid_history.append(Bid(self.players[next_bidder], bid_amount))
+            bid = Bid(self.players[next_bidder], bid_amount)
+            self.bid_history.append(bid)
             # logging.info("Bid history json: {}".format(self.get_bid_json()))
             # TODO: Implement bidding rules
             # Second condition _should_ be redundant because we should assume they play by the rules
             if bid_amount > 0 and bid_amount > winning_bid.bid_amount:
                 logging.info("Updating winning bid : {} bid {}".format(self.players[next_bidder].name, bid_amount))
                 winning_bid = Bid(self.players[next_bidder], bid_amount)
-                self.push_bid_info(winning_bid)
             else:
                 logging.info("{} opted to pass".format(self.players[next_bidder].name))
+            self.push_bid_info(bid)
             # Check termination
             if len(last_nminus1_bids) < self.num_players-1:
                 last_nminus1_bids.append(bid_amount)

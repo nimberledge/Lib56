@@ -39,11 +39,20 @@ class ReallyDumbAIStrategy(PlayerStrategy):
 
     # Update yourself with the current winning bid on the board
     def update_bid_info(self, bid):
-        self.winning_bid = bid
-        if bid.player == self:
-            self.won_bid = True
-        else:
-            self.won_bid = False
+        if self.winning_bid is None:
+            self.winning_bid = bid
+            if bid.player == self:
+                self.won_bid = True
+            else:
+                self.won_bid = False
+
+        if bid.bid_amount > self.winning_bid.bid_amount:
+            self.winning_bid = bid
+
+            if bid.player == self:
+                self.won_bid = True
+            else:
+                self.won_bid = False
 
     def display_hand(self):
         sort_hand(self.hand)
