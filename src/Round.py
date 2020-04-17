@@ -38,6 +38,7 @@ class Round(object):
         assert self.trump_suit is None
         self.trump_suit = trump_suit
 
+    @property
     def json(self):
         tmp = copy.deepcopy(self.__dict__)
         for i, c in enumerate(tmp['cards_played']):
