@@ -202,7 +202,7 @@ class GameEngine(object):
             self.play_turn(round, next_player)
             turns += 1
             next_player = self.players[(start_index + turns) % self.num_players]
-            print (self.json, end='\n****\n')
+            # print (self.json, end='\n****\n')
             # logging.info("Round json:\n{}".format(round.json()))
             # pprint.pprint(round.json())
 
@@ -330,13 +330,10 @@ class GameEngine(object):
     # Whole game, bidding to round-play, to determining overall points
     def play_game(self):
         self.generate_deck()
-        print (self.json, end='\n****\n')
         self.deal_to_players()
         self.process_bidding_round()
-        print (self.json, end='\n****\n')
         self.play_all_rounds()
         self.determine_game_points()
-        print (self.json, end='\n****\n')
         self.reset_game()
 
     '''
@@ -371,7 +368,7 @@ class GameEngine(object):
         else:
             state_dict['game_bid'] = None
 
-        print (state_dict)
+        # print (state_dict)
         return json.dumps(state_dict)
 
 def test_main():
