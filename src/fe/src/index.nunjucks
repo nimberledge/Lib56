@@ -1,0 +1,16 @@
+{% extends '_layouts/base.nunjucks' %}
+
+{% import "_modules/link/link.nunjucks" as link %}
+
+{% block content %}
+<div class="btn btn-primary" onclick="find_game()">Find a game</div>
+
+<script>
+function find_game()
+{
+  location.href = "find_game"
+}
+</script>
+
+<div class="btn btn-info">Read the rules</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends '_layouts/base.nunjucks' %}
+
+{% block config %}
+  {# Correct base url pathing for this page #}
+  {% set baseUrl = '../' %}
+{% endblock %}
+
+{% block content %}
+Find a game!
+
+<div class="input-group input-group-lg">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Enter your name</span>
+  </div>
+  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+
+Select games you want to search for<br>
+  <div class="btn btn-primary" data-toggle="button">
+    <input type="checkbox" name="options"> 4-player game
+  </div>
+<br>
+<br>
+<div class="btn btn-primary" data-toggle="button">
+    <input type="checkbox" name="options"> 6-player game
+  </div>
+</div>
+<br>
+<br>
+<div class="btn btn-success">Search</div>
+
+{% endblock %}
