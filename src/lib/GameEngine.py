@@ -131,6 +131,7 @@ class GameEngine(object):
             # logging.info("Bid history json: {}".format(self.get_bid_json()))
             # TODO: Implement bidding rules
             # Second condition _should_ be redundant because we should assume they play by the rules
+            # Actually should be redundant because of the UI preventing this?
             if bid_amount > 0 and bid_amount > winning_bid.bid_amount:
                 logging.info("Updating winning bid : {} bid {}".format(self.players[next_bidder].name, bid_amount))
                 winning_bid = Bid(self.players[next_bidder], bid_amount)
