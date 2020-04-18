@@ -1,0 +1,10 @@
+{% extends '_layouts/base.nunjucks' %}
+
+{% block config %}
+  {# Correct base url pathing for this page #}
+  {% set baseUrl = '../' %}
+{% endblock %}
+
+{% block content %}
+<p>game_table page</p>
+{% endblock %}
