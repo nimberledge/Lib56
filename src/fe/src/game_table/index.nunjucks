@@ -6,5 +6,182 @@
 {% endblock %}
 
 {% block content %}
-<p>game_table page</p>
+<style>
+canvas {
+  border: 1px solid #d3d3d3;
+  background_color: #f1f1f1;
+}
+</style>
+
+{% endblock %}
+
+{% block card_models %}
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AC.png" class="hidden" id="AC">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AS.png" class="hidden" id="AS">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AD.png" class="hidden" id="AD">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AH.png" class="hidden" id="AH">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9D.png" class="hidden" id="9D">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9H.png" class="hidden" id="9H">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9C.png" class="hidden" id="9C">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9S.png" class="hidden" id="9S">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TD.png" class="hidden" id="TD">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TH.png" class="hidden" id="TH">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TS.png" class="hidden" id="TS">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TC.png" class="hidden" id="TC">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JS.png" class="hidden" id="JS">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JH.png" class="hidden" id="JH">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JD.png" class="hidden" id="JD">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JC.png" class="hidden" id="JC">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QS.png" class="hidden" id="QS">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QC.png" class="hidden" id="QC">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QD.png" class="hidden" id="QD">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QH.png" class="hidden" id="QH">
+</div>
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KS.png" class="hidden" id="KS">
+<div class="img">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KC.png" class="hidden" id="KC">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KH.png" class="hidden" id="KH">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KD.png" class="hidden" id="KD">
+</div>
+<div class="img">
+<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KD.png" class="hidden" id="face-down">
+</div>
+{% endblock %}
+
+{% block GameWindow %}
+<script>
+var myGameWindow = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 480;
+        this.canvas.height = 270;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function update_game_window(game_engine, player_index) {
+    this.num_players = game_engine.num_players;
+    this.state = game_engine.state;
+		this.players = game_engine.players;
+		this.player_hands = game_engine.player_hands;
+    this.starting_player_index = game_engine.starting_player;
+    this.bid_history = game_engine.bid_history;
+    this.game_rounds = game_engine.game_rounds;
+    this.current_round = game_engine.current_round;
+    this.game_bid = game_engine.game_bid;
+    this.imminent_trump_request = game_engine.imminent_trump_request;
+		this.red_overall_pts = game_engine.red_overall_pts;
+		this.blue_overall_pts = game_engine.blue_overall_pts;
+
+		this.hand_position = (myGameArea.canvas.width / 3, myGameArea.canvas.height / 2);
+		this.card_width = 10
+		this.card_height = 35
+
+		// Needs to render card images for the current hand
+    this.update = function() {
+        ctx = myGameArea.context;
+				shown_hand = this.player_hands[player_index];
+				// Render shown hand
+				function render_my_cards(card, pos) {
+					var img = document.getElementByID(card.rank + card.suit);
+					ctx.drawImage(img, this.hand_position[0]+pos*this.card_width, this.hand_position[1], this.card_width, this.card_height);
+				}
+				for (let i = 0; i < shown_hand.length; i++) {
+					render_my_cards(shown_hand[i], i);
+				}
+				let i = 1;
+
+				let pos_right = (4 * myGameArea.canvas.width / 5, 2 * myGameArea.canvas.height / 3);
+				let pos_left = (1 * myGameArea.canvas.width / 5, 2 * myGameArea.canvas.height / 3);
+				let pos_opp = (myGameArea.canvas.width / 3, 4 * myGameArea.canvas.height / 5);
+				let pos = (pos_right, pos_left, pos_opp);
+
+				function render_facedown(x, y, orient) {
+					var img = document.getElementByID('face-down');
+					ctx.drawImage(img, x, y, this.card_width, this.card_height)
+				}
+
+				function render_card(x, y, card) {
+					var img = document.getElementByID(card.rank + card.suit);
+					ctx.drawImage(img, x, y, this.card_width, this.card_height);
+				}
+
+				while i < this.num_players {
+					if this.num_players == 4 {
+						for (let j = 0; j < player_hands[i + player_index]; j++) {
+							render_facedown(pos[i-1][0] + this.card_width*j, pos[i-1][1])
+						}
+					}
+					i++;
+			}
+
+			let positions = {0 : (myGameArea.canvas.width / 3, (myGameArea.canvas.height / 2) + 2*this.card_height),
+			1 : (4 * myGameArea.canvas.width / 5 - 5*this.card_width, (2 * myGameArea.canvas.height / 3),
+			2 : (myGameArea.canvas.width / 3 , (4 * myGameArea.canvas.height / 5) - 2*this.card_height),
+		 	3: (1 * myGameArea.canvas.width / 5 + 5*this.card_width, (2 * myGameArea.canvas.height / 3)}
+			if (!!this.current_round) {
+				if (this.game_rounds.length == 0) {
+					let round_starter = this.starting_player;
+				} else {
+					let round_starter = this.game_rounds[this.game_rounds.length - 1].winning_player.number;
+				}
+				for (let j = 0; j < this.current_round.cards_played.length; j++) {
+					render_card(positions[(round_starter+j) % this.num_players][0], positions[(round_starter+j) % this.num_players][1], this.current_round.cards_played[j]);
+				}
+
+			}
+    }
+}
+</script>
 {% endblock %}

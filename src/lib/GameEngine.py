@@ -50,6 +50,7 @@ class GameEngine(object):
         self.bid_history = []
         self.blue_overall_pts = 0
         self.red_overall_pts = 0
+        self.current_round = None
         # strategies as a proxy for the N PlayerStrategy-like objects representing
         # each of the players
         if strategies is not None:
@@ -184,6 +185,7 @@ class GameEngine(object):
                 round = Round(trump_suit=self.trump_suit)
             else:
                 round = Round()
+            self.current_round = round
             self.play_round(round, round_starter_index)
             round_starter_index = round.winning_player.number
             rounds.append(round)
@@ -198,6 +200,7 @@ class GameEngine(object):
     def play_round(self, round, start_index):
         turns = 0
         next_player = self.players[start_index]
+
         while turns < self.num_players:
             # logging.info("Object json: {}\n".format(self.json))
             self.play_turn(round, next_player)
@@ -350,6 +353,8 @@ class GameEngine(object):
     red_overall_pts         int, points secured by red team over presumably > 1 game
     blue_overall_pts        int, points secured by blue team over presumably > 1 game
     game_bid                bid json object, see Bid.py, represents the bid that the table settled on
+    current round           json object if currently playing rounds, None otherwise
+    hidden_trump_card       None if revealed, or not yet initialized
     '''
     @property
     def json(self):
@@ -369,6 +374,14 @@ class GameEngine(object):
         else:
             state_dict['game_bid'] = None
 
+        if self.state == GameState.TABLE_ROUND:
+            state_dict['current_round'] = self.current_round.json
+        else:
+            state_dict['current_round'] = None
+        if self.hidden_trump_card is not None:
+            state_dict['hidden_trump_card'] = self.hidden_trump_card.json
+        else:
+            state_dict['hidden_trump_card'] = None
         # print (state_dict)
         return json.dumps(state_dict)
 
