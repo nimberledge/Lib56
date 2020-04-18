@@ -27,6 +27,13 @@ Select games you want to search for<br>
 </div>
 <br>
 <br>
-<div class="btn btn-success">Search</div>
+<div class="btn btn-success" onclick="game_table()">Search</div>
+
+<script>
+function game_table()
+{
+  location.href = "../game_table"
+}
+</script>
 
 {% endblock %}
