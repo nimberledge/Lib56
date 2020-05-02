@@ -5,112 +5,36 @@
   {% set baseUrl = '../' %}
 {% endblock %}
 
-{% block content %}
-<style>
-canvas {
-  border: 1px solid #d3d3d3;
-  background_color: #f1f1f1;
-}
-</style>
-
-{% endblock %}
-
-{% block card_models %}
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AC.png" class="hidden" id="AC">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AS.png" class="hidden" id="AS">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AD.png" class="hidden" id="AD">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/AH.png" class="hidden" id="AH">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9D.png" class="hidden" id="9D">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9H.png" class="hidden" id="9H">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9C.png" class="hidden" id="9C">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/9S.png" class="hidden" id="9S">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TD.png" class="hidden" id="TD">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TH.png" class="hidden" id="TH">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TS.png" class="hidden" id="TS">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/TC.png" class="hidden" id="TC">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JS.png" class="hidden" id="JS">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JH.png" class="hidden" id="JH">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JD.png" class="hidden" id="JD">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/JC.png" class="hidden" id="JC">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QS.png" class="hidden" id="QS">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QC.png" class="hidden" id="QC">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QD.png" class="hidden" id="QD">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/QH.png" class="hidden" id="QH">
-</div>
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KS.png" class="hidden" id="KS">
-<div class="img">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KC.png" class="hidden" id="KC">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KH.png" class="hidden" id="KH">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KD.png" class="hidden" id="KD">
-</div>
-<div class="img">
-<img data-src="https://github.com/nimberledge/Lib56/blob/frontend_experiment/data/individual_card_png/KD.png" class="hidden" id="face-down">
-</div>
-{% endblock %}
-
 {% block GameWindow %}
+<div class="canvas">
+<canvas id="canvas" width="480" height="270" style="border:1px solid #d3d3d3;">
+Your browser doesn't support the game rip.
+</canvas>
+</div>
 <script>
 var myGameWindow = {
-    canvas : document.createElement("canvas"),
+    canvas : document.getElementByID("canvas"),
     start : function() {
         this.canvas.width = 480;
         this.canvas.height = 270;
+        this.canvas.style = "border: 1px solid #d3d3d3";
         this.context = this.canvas.getContext("2d");
+        this.context.fillStyle = "green";
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
-        this.interval = setInterval(updateGameArea, 20);
+        this.interval = setInterval(dummy_update, 20);
         },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
-
-function update_game_window(game_engine, player_index) {
+myGameWindow.start();
+function dummy_update() {
+  myGameWindow.context.fill();
+  myGameWindow.frameNo += 1;
+}
+function update_game_window() {
+    var game_engine, player_index;
     this.num_players = game_engine.num_players;
     this.state = game_engine.state;
 		this.players = game_engine.players;
@@ -123,6 +47,7 @@ function update_game_window(game_engine, player_index) {
     this.imminent_trump_request = game_engine.imminent_trump_request;
 		this.red_overall_pts = game_engine.red_overall_pts;
 		this.blue_overall_pts = game_engine.blue_overall_pts;
+    myGameWindow.frameNo += 1;
 
 		this.hand_position = (myGameArea.canvas.width / 3, myGameArea.canvas.height / 2);
 		this.card_width = 10

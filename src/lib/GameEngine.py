@@ -15,14 +15,14 @@ from HeuristicStrategy import HeuristicStrategy
 log_format_str = "INFO: %(message)s"
 logging.basicConfig(format=log_format_str, level=logging.INFO)
 
-class GameState(str, enum.Enum):
-    INITIALIZED = "INITIALIZED"
-    WAITING_FOR_PLAYERS = "WAITING_FOR_PLAYERS"
-    BIDDING_ROUND = "BIDDING_ROUND"
-    HIDE_TRUMP_REQUEST = "HIDE_TRUMP_REQUEST"
-    TABLE_ROUND = "TABLE_ROUND"
-    END_OF_GAME = "END_OF_GAME"
-    RESET = "RESET"
+class GameState(enum.Enum):
+    INITIALIZED = enum.auto()
+    WAITING_FOR_PLAYERS = enum.auto()
+    BIDDING_ROUND = enum.auto()
+    HIDE_TRUMP_REQUEST = enum.auto()
+    TABLE_ROUND = enum.auto()
+    END_OF_GAME = enum.auto()
+    RESET = enum.auto()
 
 class GameEngine(object):
 
@@ -361,7 +361,7 @@ class GameEngine(object):
         # return json.dumps(self.__dict__)
         state_dict = {}
         state_dict['num_players'] = self.num_players
-        state_dict['state'] = self.state
+        state_dict['state'] = self.state.name
         state_dict['players'] = [player.json for player in self.players]
         state_dict['player_hands'] = [[card.json for card in self.player_hands[i]] for i in range(len(self.player_hands))]
         state_dict['starting_player'] = state_dict['players'][self.starting_player]
